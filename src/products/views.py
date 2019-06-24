@@ -5,6 +5,22 @@ from django.http import Http404
 from .models import Product
 
 
+class ProductFeatureListView(ListView):
+    template_name = 'products/list.html'
+
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        return Product.objects.all().featured()
+
+
+class ProductFeatureDetailView(DetailView):
+    template_name = 'products/featured-detail.html'
+
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        return Product.objects.all().featured()
+
+
 class ProductListView(ListView):
     # queryset = Product.objects.all()
     template_name = 'products/list.html'

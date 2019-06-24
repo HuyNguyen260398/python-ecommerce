@@ -22,7 +22,24 @@ def upload_image_path(instance, filename):
     )
 
 
+class ProductQuerySet(models.QuerySet):
+    def featured(self):
+        return self.filter(featured=True, active=True)
+
+    def active(self):
+        return self.filter(active=True)
+
+
 class ProductManager(models.Manager):
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self._db)
+
+    def all(self):
+        return self.get_queryset().active()
+
+    def featured(self):  # Can be used as Product.objects.featured
+        return self.get_queryset().featured()
+
     def get_by_id(self, id):
         qs = self.get_queryset().filter(id=id)
         # Product.objects == self.get_queryset()
@@ -44,7 +61,9 @@ class Product(models.Model):
         null=True,
         blank=True
     )
-    
+    featured = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
+
     objects = ProductManager()
 
     def __str__(self):
