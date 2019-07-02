@@ -12,7 +12,8 @@ class SearchProducView(ListView):
             *args,
             **kwargs
         )
-        context['query'] = self.request.GET.get('q')
+        query = self.request.GET.get('q')
+        context['query'] = query
         return context
 
     def get_queryset(self, *args, **kwargs):
