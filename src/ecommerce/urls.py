@@ -21,24 +21,17 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from django.views.generic import TemplateView
 
-# from products.views import (
-#     ProductListView,
-#     product_list_view,
-#     ProductDetailSlugView,
-#     ProductDetailView,
-#     product_detail_view,
-#     ProductFeatureListView,
-#     ProductFeatureDetailView
-# )
+from carts.views import cart_home
 
-from .views import home_page, about_page, contact_page
-from .views import login_page, register_page
+from .views import (home_page, about_page, contact_page,
+                    login_page, register_page)
 
 urlpatterns = [
     url(r'^$', home_page, name='home'),
     url(r'^about/$', about_page, name='about'),
     url(r'^contact/$', contact_page, name='contact'),
     url(r'^login/$', login_page, name='login'),
+    url(r'^cart/$', cart_home, name='cart'),
     url(r'^register/$', register_page, name='register'),
     url(r'^products/', include('products.urls', namespace='products')),
     url(r'^search/', include('search.urls', namespace='search')),
