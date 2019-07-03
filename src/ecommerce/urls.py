@@ -39,13 +39,6 @@ urlpatterns = [
         r'^bootstrap/$',
         TemplateView.as_view(template_name='bootstrap/example.html')
     ),
-    # url(r'^featured/$', ProductFeatureListView.as_view()),
-    # url(r'^featured/(?P<pk>\d+)/$', ProductFeatureDetailView.as_view()),
-    # url(r'^products/$', ProductListView.as_view()),
-    # url(r'^products-fbv/$', product_list_view),
-    # # url(r'^products/(?P<pk>\d+)/$', ProductDetailView.as_view()),
-    # url(r'^products-fbv/(?P<pk>\d+)/$', product_detail_view),
-    # url(r'^products/(?P<slug>[\w-]+)/$', ProductDetailSlugView.as_view()),
     url(r'^admin/', admin.site.urls),
 ]
 
