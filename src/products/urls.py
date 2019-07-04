@@ -1,6 +1,6 @@
 from django.conf.urls import url
 
-from products.views import (
+from .views import (
     ProductListView,
     ProductDetailSlugView,
 )
