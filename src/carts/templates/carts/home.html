@@ -20,7 +20,7 @@
     <tr>
       <th scope="row">{{ forloop.counter }}</th>
       <td><a href="{{ product.get_absolute_url }}">{{ product.name }}</a></td>
-      <td>{{ product.price }}</td>
+      <td><i class="fas fa-dollar-sign"></i> {{ product.price }}</td>
       <td>{% include 'products/snippets/update-cart.html' with product=product cart=cart in_cart=True %}</td>
     </tr>
     {% endfor %}
@@ -28,13 +28,13 @@
     <tr>
       <th></th>
       <td><b class="float-right">Subtotal</b></td>
-      <td>{{ cart.subtotal }}</td>
+      <td><i class="fas fa-dollar-sign"></i> {{ cart.subtotal }}</i></td>
       <td></td>
     </tr>
     <tr>
       <th></th>
       <td><b class="float-right">Total</b></td>
-      <td>{{ cart.total }}</td>
+      <td><i class="fas fa-dollar-sign"></i> {{ cart.total }}</td>
       <td></td>
     </tr>
   </tbody>
