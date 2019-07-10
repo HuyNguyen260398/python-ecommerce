@@ -37,6 +37,12 @@
       <td><i class="fas fa-dollar-sign"></i> {{ cart.total }}</td>
       <td></td>
     </tr>
+    <tr>
+      <th></th>
+      <td></td>
+      <td><a href="{% url 'cart:checkout' %}" class="btn btn-lg btn-success">Checkout</a></td>
+      <td></td>
+    </tr>
   </tbody>
 </table>
 
