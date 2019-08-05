@@ -45,11 +45,13 @@
 
         <li class="nav-item {% if request.path == cart_url %}active{% endif %}">
           <a class="nav-link" href="{{ cart_url }}">
-            {% if request.session.cart_items %}
-              <i class="fas fa-shopping-cart"></i><span class="navbar-cart-count"> ({{ request.session.cart_items }}) </span>
-            {% else %}
-              <i class="fas fa-shopping-cart"></i>
-            {% endif %}
+            <span class="navbar-cart-count">
+              {% if request.session.cart_items %}
+                <i class="fas fa-shopping-cart"></i> ({{ request.session.cart_items }})
+              {% else %}
+                <i class="fas fa-shopping-cart"></i>
+              {% endif %}
+            </span>
           </a>
         </li>
       </ul>
