@@ -25,6 +25,38 @@
 
   <script type="text/javascript">
     $(document).ready(function(){
+      // Auto Search
+      var searchForm = $('.search-form')
+      var searchInput = searchForm.find("[name='q']")
+      var typingTimer
+      var typingInterval = 1000 // in miliseconds
+      var searchBtn = searchForm.find("[type='submit']")
+
+      searchInput.keyup(function(event){
+        // key released
+        clearTimeout(typingTimer)
+        typingTimer = setTimeout(performSearch, typingInterval)
+      })
+
+      searchInput.keydown(function(event){
+        // key pressed
+        clearTimeout(typingTimer)
+      })
+
+      function searchLoading(){
+        searchBtn.addClass('disabled')
+        searchBtn.html('<i class="fas fa-spinner"></i>')
+      }
+
+      function performSearch(){
+        searchLoading()
+        var query = searchInput.val()
+        setTimeout(function(){
+          window.location.href = '/search/?q=' + query
+        }, 1000)
+      }
+
+      // Cart + Add Products
       var productForm = $('.form-product-ajax')
 
       productForm.submit(function(event){
