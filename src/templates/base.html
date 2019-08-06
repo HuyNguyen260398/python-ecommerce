@@ -25,6 +25,63 @@
 
   <script type="text/javascript">
     $(document).ready(function(){
+      // Contact Form Handler
+      var contactForm = $('.contact-form')
+      var contactFormMethod = contactForm.attr('method')
+      var contactFormEndpoint = contactForm.attr('action')
+
+      function displaySubmitting(submitBtn, defaultText, doSubmit){
+        if (doSubmit){
+          submitBtn.addClass('disabled')
+          submitBtn.html('<i class="fas fa-circle-notch fa-spin"></i>')
+        } else {
+          submitBtn.removeClass('disabled')
+          submitBtn.html(defaultText)
+        }
+
+      }
+
+      contactForm.submit(function(event){
+        event.preventDefault()
+        var contactFormData = contactForm.serialize()
+        var contactFormSubmitBtn = contactForm.find("[type='submit']")
+        var contactFormSubmitBtnText = contactFormSubmitBtn.text()
+        displaySubmitting(contactFormSubmitBtn, "", true)
+
+        $.ajax({
+          method: contactFormMethod,
+          url: contactFormEndpoint,
+          data: contactFormData,
+          success: function(data){
+            contactForm[0].reset()
+            $.alert({
+              title: "Success!",
+              content: data.message,
+              theme: "modern",
+            })
+            setTimeout(function(){
+              displaySubmitting(contactFormSubmitBtn, contactFormSubmitBtnText, false)
+            }, 500)
+          },
+          error: function(error){
+            console.log(error.responseJSON)
+            var jsonData = error.responseJSON
+            var msg = ""
+            $.each(jsonData, function(key, value){
+              msg += key + ": " + value[0].message + "<br/>"
+            })
+            $.alert({
+              title: "Oops!",
+              content: msg,
+              theme: "modern",
+            })
+            setTimeout(function(){
+              displaySubmitting(contactFormSubmitBtn, contactFormSubmitBtnText, false)
+            }, 500)
+          }
+        })
+      })
+
       // Auto Search
       var searchForm = $('.search-form')
       var searchInput = searchForm.find("[name='q']")
@@ -45,7 +102,7 @@
 
       function searchLoading(){
         searchBtn.addClass('disabled')
-        searchBtn.html('<i class="fas fa-spinner"></i>')
+        searchBtn.html('<i class="fas fa-circle-notch fa-spin"></i>')
       }
 
       function performSearch(){
@@ -53,7 +110,7 @@
         var query = searchInput.val()
         setTimeout(function(){
           window.location.href = '/search/?q=' + query
-        }, 1000)
+        }, 500)
       }
 
       // Cart + Add Products
@@ -61,7 +118,6 @@
       productForm.submit(function(event){
         event.preventDefault()
         var thisForm = $(this)
-        // var actionEndpoint = thisForm.attr('action')
         var actionEndpoint = thisForm.attr('data-endpoint')
         var httpMethod = thisForm.attr('method')
         var formData = thisForm.serialize()
@@ -71,6 +127,10 @@
           method: httpMethod,
           data: formData,
           success: function(data){
+            console.log(productForm)
+            console.log(thisForm)
+            console.log(formData)
+            console.log(data)
             var submitSpan = thisForm.find(".submit-span")
             var navbarCount = $(".navbar-cart-count")
 
@@ -106,20 +166,18 @@
         var cartBody = cartTable.find('.cart-body')
         var productRows = cartBody.find('.cart-product')
         var currentUrl = window.location.href
-        var cartData = $(this).serialize()
 
         var refreshCartUrl = '/api/cart/'
         var refreshCartMethod = 'GET'
-        var data = {}
 
         $.ajax({
           url: refreshCartUrl,
           method: refreshCartMethod,
-          data: data,
+          data: {},
           success: function(data){
+            console.log(data)
             var hiddenCartItemRemoveForm = $('.cart-item-remove-form')
             if (data.products.length > 0){
-              console.log(data)
               productRows.html(" ")
               i = data.products.length
               $.each(data.products, function(index, value){
