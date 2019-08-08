@@ -1,0 +1,72 @@
+[
+{
+    "model": "products.product",
+    "pk": 1,
+    "fields": {
+        "title": "T-Shirt",
+        "slug": "t-shirt",
+        "description": "New model",
+        "price": "40.00",
+        "image": "products/757503/757503.jpg",
+        "featured": false,
+        "active": true,
+        "timestamp": "2019-06-25T12:36:10.822Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 2,
+    "fields": {
+        "title": "Hat",
+        "slug": "hat",
+        "description": "New",
+        "price": "40.00",
+        "image": "products/186924/186924.webp",
+        "featured": false,
+        "active": true,
+        "timestamp": "2019-06-25T12:36:10.822Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 3,
+    "fields": {
+        "title": "Pant",
+        "slug": "pant",
+        "description": "New",
+        "price": "40.00",
+        "image": "",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-06-25T12:36:10.822Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 4,
+    "fields": {
+        "title": "Shoes",
+        "slug": "shoes-c6yf",
+        "description": "New",
+        "price": "40.00",
+        "image": "",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-06-25T12:36:10.822Z"
+    }
+},
+{
+    "model": "products.product",
+    "pk": 5,
+    "fields": {
+        "title": "Hat",
+        "slug": "hat-i4ha",
+        "description": "Another hat.",
+        "price": "40.00",
+        "image": "",
+        "featured": true,
+        "active": true,
+        "timestamp": "2019-06-25T12:36:10.822Z"
+    }
+}
+]
