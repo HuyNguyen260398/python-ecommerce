@@ -25,7 +25,7 @@ def guest_register_view(request):
         if is_safe_url(redirect_path, request.get_host()):
             return redirect(redirect_path)
         else:
-            return redirect('/cart/checkout/')
+            return redirect('/register/')
 
     return redirect('/register/')
 

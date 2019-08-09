@@ -1,6 +1,8 @@
 from django.http import JsonResponse, HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.http import is_safe_url
+
+from .models import BillingProfile
 
 import stripe
 
@@ -10,6 +12,14 @@ STRIPE_PUB_KEY = "pk_test_8hljcboVHoSIRIswWFCEwlIY00Xdsw19Ue"
 
 
 def payment_method_view(request):
+    # if request.user.is_authenticated():
+    #     billing_profile = request.user.billingprofile
+    #     my_customer_id = billing_profile.customer_id
+
+    billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
+    if not billing_profile:
+        return redirect("/cart/")
+
     next_url = None
     next_ = request.GET.get('next')
     if is_safe_url(next_, request.get_host()):
@@ -19,6 +29,15 @@ def payment_method_view(request):
 
 def payment_method_create_view(request):
     if request.method == "POST" and request.is_ajax():
-        print(request.POST)
-        return JsonResponse({'message': 'Success! Your casd was added.'})
+        billing_profile, billing_profile_created = BillingProfile.objects.new_or_get(request)
+        if not billing_profile:
+            return HttpResponse({'message': 'Cannot find this user!'}, status_code=401)
+
+        token = request.POST.get('token')
+        if token is not None:
+            card = stripe.Customer.create_source(
+                billing_profile.customer_id,
+                source=token
+            )
+            return JsonResponse({'message': 'Success! Your casd was added.'})
     return HttpResponse("error", status_code=401)
