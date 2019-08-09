@@ -2,7 +2,7 @@ from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.http import is_safe_url
 
-from .models import BillingProfile
+from .models import BillingProfile, Card
 
 import stripe
 
@@ -35,9 +35,11 @@ def payment_method_create_view(request):
 
         token = request.POST.get('token')
         if token is not None:
-            card = stripe.Customer.create_source(
+            card_response = stripe.Customer.create_source(
                 billing_profile.customer_id,
                 source=token
             )
+            new_card_obj = Card.objects.add_new(billing_profile, card_response)
+            print(new_card_obj)
             return JsonResponse({'message': 'Success! Your casd was added.'})
     return HttpResponse("error", status_code=401)
