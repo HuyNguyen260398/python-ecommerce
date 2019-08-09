@@ -50,7 +50,6 @@ def billing_profile_created_receiver(sender, instance, *args, **kwargs):
             email=instance.email
         )
         instance.customer_id = customer.id
-        print(customer)
 
 
 pre_save.connect(billing_profile_created_receiver, sender=BillingProfile)
