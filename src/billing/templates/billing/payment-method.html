@@ -110,6 +110,14 @@
       //   form.submit();
       // }
 
+      function redirectToNext(nextPath, timeOffset){
+        if (nextPath){
+          setTimeout(function(){
+            window.location.href = nextPath
+          }, timeOffset)
+        }
+      }
+
       function stripeTokenHandler(nextUrl, token){
         // console.log(token.id)
         var paymentMethodEndpoint = '/billing/payment-method/create/'
@@ -122,12 +130,17 @@
           url: paymentMethodEndpoint,
           method: "POST",
           success: function(data){
-            console.log(data)
+            var successMsg = data.message
+            card.clear()
             if (nextUrl){
-              window.location.href = nextUrl
-            } else {
-              window.location.reload()
+              successMsg = successMsg + '<br/><i class="fas fa-circle-notch fa-spin"></i> Redirecting...'
             }
+            if ($.alert){
+              $.alert(successMsg)
+            } else {
+              alert(successMsg)
+            }
+            redirectToNext(nextUrl, 1500)
           },
           error: function(error){
             console.log(error)
