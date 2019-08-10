@@ -46,6 +46,26 @@ class BillingProfile(models.Model):
     def charge(self, order_obj, card=None):
         return Charge.objects.do(self, order_obj, card)
 
+    def get_cards(self):
+        return self.card_set.all()
+
+    @property
+    def has_card(self):
+        card_qs = self.get_cards()
+        return card_qs.exists()
+
+    @property
+    def default_card(self):
+        default_cards = self.get_cards().filter(default=True)
+        if default_cards.exists():
+            return default_cards.first()
+        return None
+
+    def set_cards_inactive(self):
+        cards_qs = self.get_cards()
+        cards_qs.update(active=False)
+        return cards_qs.filter(active=True).count()
+
 
 def billing_profile_created_receiver(sender, instance, *args, **kwargs):
     if not instance.customer_id and instance.email:
@@ -67,6 +87,9 @@ post_save.connect(user_created_reciever, sender=User)
 
 
 class CardManager(models.Manager):
+    def all(self, *args, **kwargs):
+        return self.get_queryset().filter(active=True)
+
     def add_new(self, billing_profile, token):
         if token:
             stripe_card_response = stripe.Customer.create_source(
@@ -96,6 +119,8 @@ class Card(models.Model):
     exp_year = models.IntegerField(null=True, blank=True)
     last4 = models.CharField(max_length=4, null=True, blank=True)
     default = models.BooleanField(default=True)
+    active = models.BooleanField(default=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
 
     objects = CardManager()
 
