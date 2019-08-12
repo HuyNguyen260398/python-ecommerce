@@ -68,13 +68,13 @@ class Mailchimp(object):
         # endpoint = self.get_members_endpoint()
         # r = requests.post(endpoint, auth=("", self.key), data=json.dumps(data))
         # return r.json()
-        return self.change_subscription_status(email, status="subcribed")
+        return self.change_subscription_status(email, status="subscribed")
 
     def unsubscribe(self, email):
-        return self.change_subscription_status(email, status="unsubcribed")
+        return self.change_subscription_status(email, status="unsubscribed")
 
     def subscribe(self, email):
-        return self.change_subscription_status(email, status="subcribed")
+        return self.change_subscription_status(email, status="subscribed")
 
     def pending(self, email):
         return self.change_subscription_status(email, status="pending")
