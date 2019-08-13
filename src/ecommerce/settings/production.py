@@ -26,7 +26,7 @@ SECRET_KEY = 'h5(aj5vtmet+6g*sn_x@u7$+=k-!732@51x!y(j$p%q%p!&)w#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [".herokuapp.com"]
+ALLOWED_HOSTS = ['prj-ecom-pydj.herokuapp.com', '127.0.0.1']
 
 
 # Application definition
