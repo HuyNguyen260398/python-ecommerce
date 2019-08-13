@@ -67,6 +67,7 @@ STRIPE_SEC_KEY = "sk_test_L2UkxaY9kJLqL3veVS0fCuLv00uVo6w8I4"
 STRIPE_PUB_KEY = "pk_test_8hljcboVHoSIRIswWFCEwlIY00Xdsw19Ue"
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -75,6 +76,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 LOGOUT_REDIRECT_URL = '/login/'
 ROOT_URLCONF = 'ecommerce.urls'
