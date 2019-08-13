@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'addresses',
     'analytics',
     'marketing',
+
+    # 3rd Party Apps
+    # 'storages',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -161,6 +164,8 @@ MEDIA_ROOT = os.path.join(
     'static_cdn',
     'media_root'
 )
+
+# from ecommerce.aws.conf import *
 
 CORS_REPLACE_HTTPS_REFERER = False
 HOST_SCHEME = "http://"

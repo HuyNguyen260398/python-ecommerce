@@ -49,6 +49,9 @@ INSTALLED_APPS = [
     'addresses',
     'analytics',
     'marketing',
+
+    # 3rd Party Apps
+    # 'storages',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
@@ -171,8 +174,3 @@ CSRF_COOKIE_SECURE = False
 SECURE_HSTS_SECONDS = None
 SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 SECURE_FRAME_DENY = False
-
-AWS_GROUP_NAME = "Python_eCommerce_Group"
-AWS_USERNAME = "Admin_Python_eCommerce"
-AWS_ACCESS_KEY_ID = "AKIAQE2WXIOJB3QGBSOQ"
-AWS_SECRET_KEY = "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"

@@ -50,6 +50,9 @@ INSTALLED_APPS = [
     'addresses',
     'analytics',
     'marketing',
+
+    # 3rd Party Apps
+    # 'storages',
 ]
 
 AUTH_USER_MODEL = 'accounts.User'
