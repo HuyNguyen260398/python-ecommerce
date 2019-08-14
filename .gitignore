@@ -1,6 +1,7 @@
 .DS_STORE
 fasttracktojquery/
 eccommerce/aws/
+.env
 
 # Virtualenv related
 bin/

@@ -25,11 +25,11 @@ SECRET_KEY = 'h5(aj5vtmet+6g*sn_x@u7$+=k-!732@51x!y(j$p%q%p!&)w#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['prj-ecom-pydj.herokuapp.com', '127.0.0.1']
+ALLOWED_HOSTS = ['prj-ecom-pydj.herokuapp.com', '127.0.0.1', '0.0.0.0']
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'huynguyen260398@gmail.com'
-EMAIL_HOST_PASSWORD = 'yourpassword'
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "yourpassword")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'Python eCommerce <huynguyen260398@gmail.com>'
@@ -71,12 +71,13 @@ AUTH_USER_MODEL = 'accounts.User'
 FORCE_SESSION_TO_ONE = False
 FORCE_INACTIVE_USER_END_SESSION = False
 
-MAILCHIMP_API_KEY = "026afa813150e4672a0783ad62cb4a21-us3"
+# MAILCHIMP_API_KEY = os.environ["MAILCHIMP_API_KEY"] # Use this when running server with heroku
+MAILCHIMP_API_KEY = os.environ.get("MAILCHIMP_API_KEY", "DEFAULT")
 MAILCHIMP_DATA_CENTER = "us3"
-MAILCHIMP_EMAIL_LIST_ID = "f63ed0b189"
+MAILCHIMP_EMAIL_LIST_ID = os.environ.get("MAILCHIMP_EMAIL_LIST_ID")
 
-STRIPE_SEC_KEY = "sk_test_L2UkxaY9kJLqL3veVS0fCuLv00uVo6w8I4"
-STRIPE_PUB_KEY = "pk_test_8hljcboVHoSIRIswWFCEwlIY00Xdsw19Ue"
+STRIPE_SEC_KEY = os.environ.get("STRIPE_SEC_KEY", "sk_test_L2UkxaY9kJLqL3veVS0fCuLv00uVo6w8I4")
+STRIPE_PUB_KEY = os.environ.get("STRIPE_PUB_KEY", "pk_test_8hljcboVHoSIRIswWFCEwlIY00Xdsw19Ue")
 
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
