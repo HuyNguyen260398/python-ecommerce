@@ -10,7 +10,8 @@ from accounts.models import GuestEmail
 User = settings.AUTH_USER_MODEL
 
 
-stripe.api_key = "sk_test_L2UkxaY9kJLqL3veVS0fCuLv00uVo6w8I4"
+STRIPE_SEC_KEY = getattr(settings, "STRIPE_SEC_KEY", "sk_test_L2UkxaY9kJLqL3veVS0fCuLv00uVo6w8I4")
+stripe.api_key = STRIPE_SEC_KEY
 
 
 class BillingProfileManager(models.Manager):
