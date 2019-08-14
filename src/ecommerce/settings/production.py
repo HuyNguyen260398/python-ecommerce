@@ -24,7 +24,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # SECRET_KEY = 'h5(aj5vtmet+6g*sn_x@u7$+=k-!732@51x!y(j$p%q%p!&)w#'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'huynguyen260398@gmail.com'
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Python eCommerce <huynguyen260398@gmail.com>'
+
+MANAGERS = (
+    ('Huy Nguyen', 'huynguyen260398@gmail.com'),
+)
+ADMINS = MANAGERS
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
