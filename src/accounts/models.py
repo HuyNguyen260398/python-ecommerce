@@ -1,3 +1,4 @@
+from datetime import timedelta
 from django.conf import settings
 from django.db import models
 from django.db.models.signals import pre_save, post_save
@@ -7,8 +8,11 @@ from django.contrib.auth.models import (
 )
 from django.core.mail import send_mail
 from django.template.loader import get_template
+from django.utils import timezone
 
 from ecommerce.utils import random_string_generator, unique_key_generator
+
+DEFAULT_ACTIVATION_DAYS = getattr(settings, 'DEFAULT_ACTIVATION_DAYS', 7)
 
 
 class UserManager(BaseUserManager):
@@ -52,7 +56,6 @@ class UserManager(BaseUserManager):
 class User(AbstractBaseUser):
     email = models.EmailField(max_length=255, unique=True)
     full_name = models.CharField(max_length=255, blank=True, null=True)
-    # active = models.BooleanField(default=True)
     is_active = models.BooleanField(default=True)
     staff = models.BooleanField(default=False)
     admin = models.BooleanField(default=False)
@@ -93,6 +96,28 @@ class User(AbstractBaseUser):
     #     return self.active
 
 
+class EmailActivationQuerySet(models.query.QuerySet):
+    def confirmable(self):
+        now = timezone.now()
+        start_range = now - timedelta(days=DEFAULT_ACTIVATION_DAYS)
+        end_range = now
+        return self.filter(
+            activated=False,
+            forced_expired=False
+        ).filter(
+            timestamp__gt=start_range,
+            timestamp__lte=end_range
+        )
+
+
+class EmailActivationManager(models.Manager):
+    def get_queryset(self):
+        return EmailActivationQuerySet(self.model, using=self._db)
+
+    def confirmable(self):
+        return self.get_queryset().confirmable()
+
+
 class EmailActivation(models.Model):
     user = models.ForeignKey(User)
     email = models.EmailField()
@@ -103,8 +128,26 @@ class EmailActivation(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     update = models.DateTimeField(auto_now=True)
 
+    objects = EmailActivationManager()
+
     def __str__(self):
         return self.email
+
+    def can_activate(self):
+        qs = EmailActivation.objects.filter(pk=self.pk).confirmable()
+        if qs.exists():
+            return True
+        return False
+
+    def activate(self):
+        if self.can_activate():
+            user = self.user
+            user.is_active = True
+            user.save()
+            self.activate = True
+            self.save()
+            return True
+        return False
 
     def regenerate(self):
         self.key = None
