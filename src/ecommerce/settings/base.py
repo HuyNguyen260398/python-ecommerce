@@ -28,17 +28,17 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'huynguyen260398@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "01233419773")
+EMAIL_HOST_USER = 'prj.ecom.pydj@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "Python337Django22")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Python eCommerce <huynguyen260398@gmail.com>'
+DEFAULT_FROM_EMAIL = 'Python eCommerce <prj.ecom.pydj@gmail.com>'
+BASE_URL = '127.0.0.1:8000'
 
-ADMINS = (
-    ('Huy Nguyen', 'huynguyen260398@gmail.com'),
+MANAGERS = (
+    ('Admin', 'prj.ecom.pydj@gmail.com'),
 )
-MANAGERS = ADMINS
-
+ADMINS = MANAGERS
 
 # Application definition
 

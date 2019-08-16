@@ -24,23 +24,23 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__fil
 # SECRET_KEY = 'h5(aj5vtmet+6g*sn_x@u7$+=k-!732@51x!y(j$p%q%p!&)w#'
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'huynguyen260398@gmail.com'
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD', '01233419773')
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'Python eCommerce <huynguyen260398@gmail.com>'
-
-MANAGERS = (
-    ('Huy Nguyen', 'huynguyen260398@gmail.com'),
-)
-ADMINS = MANAGERS
-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['prj-ecom-pydj.herokuapp.com', '127.0.0.1']
 
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'prj.ecom.pydj@gmail.com'
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD", "Python337Django22")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'Python eCommerce <prj.ecom.pydj@gmail.com>'
+BASE_URL = 'https://www.prj-ecom-pydj.herokuapp.com/'
+
+MANAGERS = (
+    ('Admin', 'prj.ecom.pydj@gmail.com'),
+)
+ADMINS = MANAGERS
 
 # Application definition
 
@@ -197,3 +197,13 @@ CSRF_COOKIE_SECURE = True
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_SECONDS = 1000000
 SECURE_FRAME_DENY = True
+
+# CORS_REPLACE_HTTPS_REFERER = False
+# HOST_SCHEME = "http://"
+# SECURE_PROXY_SSL_HEADER = None
+# SECURE_SSL_REDIRECT = False
+# SESSION_COOKIE_SECURE = False
+# CSRF_COOKIE_SECURE = False
+# SECURE_HSTS_SECONDS = None
+# SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+# SECURE_FRAME_DENY = False
