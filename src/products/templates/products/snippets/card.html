@@ -7,7 +7,9 @@
   <div class="card-body">
     <h5 class="card-title">{{ instance.title }}</h5>
     <p class="card-text">{{ instance.description|linebreaks|truncatewords:16 }}</p>
-    <a href="{{ instance.get_absolute_url }}" class="btn btn-primary"><i class="fas fa-eye"></i> View</a>
-    <!-- <a href="{% url 'products:detail' slug=instance.slug %}" class="btn btn-warning">URL Shortcut</a> -->
+    <div class="text-center">
+      <a href="{{ instance.get_absolute_url }}" class="btn btn-primary my-2"><i class="fas fa-eye"></i> View</a>
+      {% include 'products/snippets/update-cart.html' with product=instance cart=cart %}
+    </div>
   </div>
 </div>

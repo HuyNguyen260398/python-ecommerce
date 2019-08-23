@@ -184,6 +184,12 @@ MEDIA_ROOT = os.path.join(
     'media_root'
 )
 
+PROTECTED_ROOT = os.path.join(
+    os.path.dirname(BASE_DIR),
+    'static_cdn',
+    'protected_media'
+)
+
 # from ecommerce.aws.conf import *
 
 CORS_REPLACE_HTTPS_REFERER = False

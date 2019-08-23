@@ -27,3 +27,14 @@
 #     'Expires': expires,
 #     'Cache-Control': 'max-age=%d' % (int(two_months.total_seconds()), ),
 # }
+
+# AWS_STORAGE_BUCKET_NAME = '<your-aws-bucket-name>'
+# AWS_ACCESS_KEY_ID = '<your-aws-user-access-key-id>'
+# AWS_SECRET_ACCESS_KEY =  '<your-aws-user-secret-key>'
+#
+# S3DIRECT_REGION =  'us-west-2'
+#
+# PROTECTED_DIR_NAME = '<your-in-bucket-dir-name>'
+# PROTECTED_MEDIA_URL = '//%s.s3.amazonaws.com/%s/' %( AWS_STORAGE_BUCKET_NAME, PROTECTED_DIR_NAME)
+#
+# AWS_DOWNLOAD_EXPIRE = 5000 #(0ptional, in milliseconds)

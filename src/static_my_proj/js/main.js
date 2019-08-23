@@ -89,6 +89,43 @@ $(document).ready(function(){
 
   // Cart + Add Products
   var productForm = $('.form-product-ajax')
+
+  function getOwnedProduct(productId, submitSpan){
+    var actionEndpoint = '/orders/endpoint/verify/ownership/'
+    var httpMethod = 'GET'
+    var data = {
+      product_id: productId
+    }
+
+    $.ajax({
+      url: actionEndpoint,
+      method: httpMethod,
+      data: data,
+      success: function(data){
+        console.log(data)
+        if (data.owner){
+          submitSpan.html("<a class='btn btn-warning' href='/library/'>In Library</a>")
+        }
+      },
+      error: function(error){
+        console.log(error)
+      }
+    })
+  }
+
+  $.each(productForm, function(index, object){
+    var $this = $(this)
+    var isUser = $this.attr('data-user')
+    var submitSpan = $this.find('.submit-span')
+    var productInput = $this.find("[name='product_id']")
+    var productId = productInput.attr('value')
+    var productIsDigital = productInput.attr('data-is-digital')
+
+    if (productIsDigital && isUser){
+      var isOwned = getOwnedProduct(productId, submitSpan)
+    }
+  })
+
   productForm.submit(function(event){
     event.preventDefault()
     var thisForm = $(this)
@@ -101,15 +138,11 @@ $(document).ready(function(){
       method: httpMethod,
       data: formData,
       success: function(data){
-        console.log(productForm)
-        console.log(thisForm)
-        console.log(formData)
-        console.log(data)
         var submitSpan = thisForm.find(".submit-span")
         var navbarCount = $(".navbar-cart-count")
 
         if (data.added){
-          submitSpan.html("In cart <button type='submit' class='btn btn-danger'><i class='fas fa-trash'></i> Remove</button>")
+          submitSpan.html("<div class='btn-group'><a class='btn btn-danger' href='/cart/'>In cart </a><button type='submit' class='btn btn-danger'><i class='fas fa-trash'></i> Remove</button></div>")
           navbarCount.html("<i class='fas fa-shopping-cart'></i> (" + data.cartItemCount + ")")
         } else {
           submitSpan.html("<button type='submit' class='btn btn-success'><i class='fas fa-cart-plus'></i> Add to cart</button>")

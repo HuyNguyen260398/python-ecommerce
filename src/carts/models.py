@@ -38,15 +38,15 @@ class Cart(models.Model):
     user = models.ForeignKey(User, null=True, blank=True)
     products = models.ManyToManyField(Product, blank=True)
     subtotal = models.DecimalField(
-                                default=0.00,
-                                max_digits=100,
-                                decimal_places=2
-                                )
+        default=0.00,
+        max_digits=100,
+        decimal_places=2
+    )
     total = models.DecimalField(
-                                default=0.00,
-                                max_digits=100,
-                                decimal_places=2
-                                )
+        default=0.00,
+        max_digits=100,
+        decimal_places=2
+    )
     timestamp = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
@@ -54,6 +54,14 @@ class Cart(models.Model):
 
     def __str__(self):
         return str(self.id)
+
+    @property
+    def is_digital(self):
+        qs = self.products.all()
+        new_qs = qs.filter(is_digital=False)
+        if new_qs.exists():
+            return False
+        return True
 
 
 def m2m_changed_cart_receiver(sender, instance, action, *args, **kwargs):
