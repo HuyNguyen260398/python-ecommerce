@@ -176,7 +176,7 @@ STATICFILES_DIRS = [
 
 STATIC_ROOT = os.path.join(
     BASE_DIR,
-    'static_cdn',
+    'staticfiles',
     'static_root'
 )
 
@@ -184,13 +184,13 @@ MEDIA_URL = '/media/'
 
 MEDIA_ROOT = os.path.join(
     BASE_DIR,
-    'static_cdn',
+    'staticfiles',
     'media_root'
 )
 
 PROTECTED_ROOT = os.path.join(
     BASE_DIR,
-    'static_cdn',
+    'staticfiles',
     'protected_media'
 )
 
