@@ -29,6 +29,7 @@ from carts.views import cart_detail_api_view
 from marketing.views import MarketingPreferenceUpdateView, MailchimpWebhookView
 from orders.views import LibraryView
 from .views import home_page, about_page, contact_page
+from analytics.views import SalesView, SalesAjaxView
 
 urlpatterns = [
     url(r'^$', home_page, name='home'),
@@ -38,6 +39,8 @@ urlpatterns = [
     url(r'^account/', include('accounts.urls', namespace='account')),
     url(r'^accounts/', include('accounts.passwords.urls')),
     url(r'^contact/$', contact_page, name='contact'),
+    url(r'^analytics/sales/$', SalesView.as_view(), name='sales-analytics'),
+    url(r'^analytics/sales/data/$', SalesAjaxView.as_view(), name='sales-analytics-data'),
     url(r'^login/$', LoginView.as_view(), name='login'),
     url(r'^checkout/address/create/$', checkout_address_create_view, name='checkout_address_create'),
     url(r'^checkout/address/reuse/$', checkout_address_reuse_view, name='checkout_address_reuse'),
